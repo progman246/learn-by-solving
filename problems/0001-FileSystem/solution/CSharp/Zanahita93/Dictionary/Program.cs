@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 // See https://aka.ms/new-console-template for more information
 
 //Get the input path
@@ -97,13 +95,13 @@ foreach (var str in numberNames.Keys)
             sbr = sbr.ToUpper();
             var dic = dicFiles.FirstOrDefault(x => x.Contains(sbr));
             var numberNamesArr = numberNames[str].ToArray();
-            var dicLines = string.Join(" , ", numberNamesArr);
+            var dicLines = string.Join(",", numberNamesArr);
 
             if (dic == null)
             {
                 using (StreamWriter writer = File.CreateText($"{outputPath}\\{sbr}.dic"))
                 {
-                    writer.WriteLine($"{str}  |  {dicLines} ");
+                    writer.WriteLine($"{str}|{dicLines} ");
                     var dicf = Path.GetFileName($"{outputPath}\\{sbr}.dic");
                     dicFiles.Add(dicf);
                 }
@@ -113,7 +111,7 @@ foreach (var str in numberNames.Keys)
             {
                 using (StreamWriter sw = File.AppendText($"{outputPath}\\{sbr}.dic"))
                 {
-                    sw.WriteLine($"{str}  |  {dicLines} ");
+                    sw.WriteLine($"{str}|{dicLines}");
 
                 }
             }
@@ -122,6 +120,15 @@ foreach (var str in numberNames.Keys)
     }
 }
 
+
+
+using (StreamWriter pth = new StreamWriter($"{outputPath}\\Paths.dic"))
+foreach (var strf in fileNumber.Keys)
+{
+    {
+        pth.WriteLine($"{strf}|{fileNumber[strf]}");
+    }
+}
 
 
 // write the keys and values 
