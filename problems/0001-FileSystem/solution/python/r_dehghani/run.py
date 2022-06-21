@@ -1,7 +1,5 @@
 from pathlib import Path
 
-from pyparsing import alphanums
-
 
 def riddle_text_files(*args, **kwargs):
     """this function just extract files within the current dir that it's suffix is .txt
@@ -18,8 +16,8 @@ def riddle_text_files(*args, **kwargs):
     enum_paths = enumerate(list_of_text_files_pathes)
 
     for count, val in enum_paths:
-        print(f"thie counter is : {count}")
-        print(f"the value is : {val}")
+        print(f"the related number to the path is ---> {count}")
+        print(f"the {count} file path is ---> {val}")
         paths_dict[count] = val
 
     return paths_dict
@@ -35,17 +33,15 @@ def search_through_files(paths: dict, *args, **kwargs):
     for key, exported_path in paths.items():
         with open(exported_path, "r", encoding="utf-8") as my_file:
             line_text = my_file.readlines()
-            print(line_text)
         for sentence in line_text:
             line_words = sentence.split()
             for word in line_words:
                 if word[0] in ALPHABETE or word[0].lower() in ALPHABETE:
                     if word in word_dict.keys():
-                        word_dict[word].append(key)
-
+                        if not key in word_dict[word]:
+                            word_dict[word].append(key)
                     else:
                         word_dict[word] = [key]
-    print(word_dict)
     return word_dict
 
 
@@ -61,6 +57,7 @@ def sort_data_into_seprate_files(all_vocabs: dict, all_paths: dict, * args, **kw
 
 
 if __name__ == "__main__":
+    print("here!!") 
     riddle_paths = riddle_text_files()
     all_word = search_through_files(riddle_paths)
     sort_data_into_seprate_files(all_word, riddle_paths)
